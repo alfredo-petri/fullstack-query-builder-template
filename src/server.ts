@@ -35,4 +35,12 @@ app.patch("/courses/:id", async (request: Request, response: Response) => {
     return response.status(200).json({message: 'Curso atualizado com sucesso', course: course[0]})
 })
 
+app.delete("/courses/:id", async (request: Request, response: Response) => {
+    const { id } = request.params
+    await knex("courses").delete().where({id})
+    // await knex.raw(`DELETE FROM courses WHERE id = ${id} `)
+    
+    return response.status(200).json('Curso deletado com sucesso')
+})
+
 app.listen(3333, () => console.log(`Server is running on port 3333`))
